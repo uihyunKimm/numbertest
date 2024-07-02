@@ -1,0 +1,1315 @@
+<html lang="ko">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta charset="utf-8">
+    <title>numbertest</title>
+
+
+
+
+
+
+
+
+
+
+    <!-- 온라인코드 구매타입 > 단체검사누락자 -->
+
+
+
+
+
+
+
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+    <meta name="format-detection" content="telephone=no">
+    <title>심리검사 자동화</title>
+    <link rel="shortcut icon" href="ICO 이미지 경로">
+    <link rel="apple-touch-icon" href="png 이미지 경로" class="ico_homeAdd">
+    <link rel="stylesheet" href="https://dev.inpsyt.co.kr/front/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="https://dev.inpsyt.co.kr/front/resources/css/auto.css">
+    <link rel="stylesheet" href="https://dev.inpsyt.co.kr/front/resources/css/jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- bayley4 css 추가 -->
+    <link rel="stylesheet" href="numbertest.css">
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="https://dev.inpsyt.co.kr/front/resources/css/layout_pc.css">
+    <![endif]-->
+    <script async="" src="http://www.google-analytics.com/analytics.js"></script>
+    <!--<script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/jquery-1.11.1.min.js"></script>-->
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/jquery.form/jquery.form.js"></script>
+    <script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/jquery.datepicker/jquery.ui.datepicker-ko.js"></script>
+    <style type="text/css">
+        .ui-datepicker-current {
+            display: none;
+        }
+    </style>
+    
+
+    <!--레이어 팝업 스크립트 추가 -->
+    <script type="text/javascript" src="jquery.bpopup.min.js"></script>
+    <script type="text/javascript" src="numbertest.js"></script>
+
+
+
+    <script>
+        context = '/front/';
+
+        $(function() {
+
+var agentType = '';
+var strTerminal = '';
+var mobile1 = navigator.userAgent.match(/LG|SAMSUNG|Samsung/);
+var mobile2 = navigator.userAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/);
+
+if (mobile1 || mobile2) {
+    if (mobile1 != null) {
+        agentType = 'MOBILE_' + mobile1 + '_' + mobile2;
+    } else {
+        agentType = 'MOBILE_' + mobile2;
+    }
+    strTerminal += '<input type="hidden" name="psyTerminalCd" id="psyTerminalCd" value="' + agentType + '">';
+    $("#form").append(strTerminal);
+} else {
+    agentType = 'PC';
+    strTerminal += '<input type="hidden" name="psyTerminalCd" id="psyTerminalCd" value="' + agentType + '">';
+    $("#form").append(strTerminal);
+}
+
+
+var strTerminalBrowser = '';
+var agent = navigator.userAgent.toLowerCase();
+
+if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="explorer">';
+    $("#form").append(strTerminalBrowser);
+} else if (agent.indexOf("edge") != -1 && agent.indexOf("chrome") != -1 && agent.indexOf("safari") != -1) {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="edge">';
+    $("#form").append(strTerminalBrowser);
+} else if (agent.indexOf("whale") != -1 && agent.indexOf("chrome") != -1 && agent.indexOf("safari") != -1) { // whale
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="whale">';
+    $("#form").append(strTerminalBrowser);
+} else if (agent.indexOf("chrome") != -1 && agent.indexOf("safari") != -1) {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="chrome">';
+    $("#form").append(strTerminalBrowser);
+} else if (agent.indexOf("safari") != -1) {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="safari">';
+    $("#form").append(strTerminalBrowser);
+} else if (agent.indexOf("firefox") != -1) {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="firefox">';
+    $("#form").append(strTerminalBrowser);
+} else {
+    strTerminalBrowser += '<input type="hidden" name="psyTerminalBrowserCd" id="psyTerminalBrowserCd" value="' + agent + '">';
+    $("#form").append(strTerminalBrowser);
+}
+});
+</script>
+<!-- 검사자동화 공통 기능 -->
+
+
+<script type="text/javascript" src="https://dev.inpsyt.co.kr/front/resources/js/hakjisa/at/autoTesting.js?var=20220216"></script>
+
+<!-- 국민은행 S -->
+<style>
+.table.ectblock>thead>tr>th,
+.table.ectblock>tbody>tr>th,
+.table.ectblock>tfoot>tr>th,
+.table.ectblock>thead>tr>td,
+.table.ectblock>tbody>tr>td,
+.table.ectblock>tfoot>tr>td {
+display: block;
+height: auto;
+}
+</style>
+<!-- 국민은행 E -->
+<script>
+(function(i, s, o, g, r, a, m) {
+i['GoogleAnalyticsObject'] = r;
+i[r] = i[r] || function() {
+    (i[r].q = i[r].q || []).push(arguments)
+}, i[r].l = 1 * new Date();
+a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0];
+a.async = 1;
+a.src = g;
+m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-73816571-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script>
+$(function() {
+
+// 국민은행 스크립트 S
+if ("" == "국민은행 골든라이프부") {
+    $('#dispKb').css("display", "");
+    $('#dispDp').css("display", "none");
+} else {
+    $('#dispKb').css("display", "none");
+    $('#dispDp').css("display", "");
+}
+
+$('.btn_cancel').click(function(e) {
+    e.preventDefault();
+    window.close();
+});
+
+if ("OHSS_CO_SG" == 'TBI_CO_SG') {
+    $('#atSchoolAgeCd').css("display", "none");
+}
+
+// KMSI_CO_SG V1.2/V2.2 성별 여자로 체크/수정도 가능하게
+if ("OHSS_CO_SG" == 'KMSI_CO_SG' && ("V1.0" == 'V1.2' || "V1.0" == 'V2.2')) {
+    $("input:radio[name='sex']:radio[value='F']").prop('checked', true);
+}
+
+$('.btn_ok').click(function(e) {
+    e.preventDefault();
+    if ($('input:checkbox[id="agree01"]').is(":checked")) {
+        $('#dispKb').css("display", "none");
+        $('#dispDp').css("display", "");
+    } else {
+        alert("개인정보 제공 및 활동에 동의 하셔야 합니다.");
+        return;
+    }
+});
+// 국민은행 스크립트 E
+
+
+// 검사일 오늘날짜 세팅
+$('#testingDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
+// 월령 계산
+setAtAgeCd();
+// 학령 정보 세팅
+
+
+// 달력 세팅
+$('#testingDate').datepicker({
+    beforeShow: function() {
+        setTimeout(function() {
+            $('.ui-datepicker').css('z-index', 99999999999999);
+        }, 0);
+    },
+    onClose: function(e) {
+        if ($('#birthday').val() == '') {
+            alert('생년월일을 선택해주세요.');
+            $('#birthday').focus();
+            return;
+        }
+        // 월령 계산
+        setAtAgeCd();
+    }
+});
+$('#birthday').datepicker({
+    yearRange: 'c-99:c+40', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+    onClose: function(e) {
+        if ($('#testingDate').val() == '') {
+            //alert('검사일을 선택해주세요.');
+            $('#birthday').val('');
+            $('#testingDate').focus();
+            return;
+        }
+
+        // 월령 계산
+        setAtAgeCd();
+
+    },
+    beforeShow: function() {
+
+        setTimeout(function() {
+            $('.ui-datepicker').css('z-index', 99999999999999);
+        }, 0);
+    }
+});
+
+$('#submitBtn').click(function(e) {
+    e.preventDefault();
+
+    var atAgeCd = $('#atAgeCd').val();
+
+
+    if (preventSymbol() == 'false') {
+        return;
+    }
+    /*if ($.trim($('#testerName').val()) == '') {
+        alert('검사자를 입력해주세요.');
+        $('#testerName').focus();
+        return;
+
+    } else*/
+    if ($.trim($('#testingDate').val()) == '') {
+        alert('검사일을 입력해주세요.');
+        $('#testingDate').focus();
+        return;
+
+        /*} else if ($.trim($('#testingOrg').val()) == '') {
+            alert('검사기관을 입력해주세요.');
+            $('#testingOrg').focus();
+            return;
+        */
+    } else if ($.trim($('#name').val()) == '') {
+        alert('피검사자을 입력해주세요.');
+        $('#name').focus();
+        return;
+
+    } else if ($.trim($('#birthday').val()) == '') {
+        alert('생년월일을 입력해주세요.');
+        $('#birthday').focus();
+        return;
+
+    } else if (nvl($('[id=sex]:checked').val(), '') == '') {
+        alert('성별을 선택해주세요.');
+        $('[name=sex]:eq(0)').focus();
+        return;
+    } else if ($.trim($('#atRegionCd').val()) == '') {
+        alert('거주 지역을 선택해주세요.');
+        $('#atRegionCd').focus();
+        return;
+    } else if (Number(atAgeCd) < 216 || Number(atAgeCd) > 816) {
+        alert("해당 검사는 18세 부터 68세 까지입니다");
+        return;
+    }
+
+
+
+
+    // 추가인적사항 내용을 JSON 형태로 만든다.
+    var addInquiryValArray = new Array();
+
+    // text 처리
+    var textGroup = $('[name=text-data]');
+
+    for (var i = 0; i < textGroup.length; i++) {
+        var addInquirySeq = textGroup[i].id;
+        var mandatoryYn = $('#inquiry_' + addInquirySeq).attr('mandatoryYn');
+        var value = $('#inquiry_' + addInquirySeq).val();
+
+        if (mandatoryYn == 'Y' && value == '') {
+            var addInquiryName = $('#addInquiryName_' + addInquirySeq).text();
+            alert(addInquiryName + '을 입력해주세요.');
+            $('#inquiry_' + addInquirySeq).focus();
+            return;
+        }
+
+        if (value != '') {
+            var addInquiryValVO = new Object();
+            addInquiryValVO.addInquirySeq = addInquirySeq;
+            addInquiryValVO.addInquiryVal = value;
+            addInquiryValArray.push(addInquiryValVO);
+        }
+    }
+
+    // Selectbox 처리
+    var selectGroup = $('[name=select-data]');
+
+    for (var i = 0; i < selectGroup.length; i++) {
+        var addInquirySeq = selectGroup[i].id;
+        var mandatoryYn = $('#inquiry_' + addInquirySeq).attr('mandatoryYn');
+        var value = $('#inquiry_' + addInquirySeq + '  option:selected').val();
+
+        if (mandatoryYn == 'Y' && value == '') {
+            var addInquiryName = $('#addInquiryName_' + addInquirySeq).text();
+            addInquiryName = addInquiryName.slice(0, -1);
+            alert(addInquiryName + '을 선택해주세요.');
+            $('#inquiry_' + addInquirySeq).focus();
+            return;
+        }
+
+        if (value != '') {
+            var addInquiryValVO = new Object();
+            addInquiryValVO.addInquirySeq = addInquirySeq;
+            addInquiryValVO.addInquiryVal = value;
+            addInquiryValArray.push(addInquiryValVO);
+        }
+    }
+
+    // radio 처리
+    var radioGroup = $('[name=radio-data]');
+
+    for (var i = 0; i < radioGroup.length; i++) {
+        var addInquirySeq = radioGroup[i].id;
+        var mandatoryYn = $('#inquiry_' + addInquirySeq).attr('mandatoryYn');
+        var value = $('[id=inquiry_' + addInquirySeq + ']:checked').val();
+
+        if (mandatoryYn == 'Y' && nvl(value, '') == '') {
+            var addInquiryName = $('#addInquiryName_' + addInquirySeq).text();
+            alert(addInquiryName + '을 선택해주세요.');
+            $('#inquiry_' + addInquirySeq).focus();
+            return;
+        }
+
+        if (value != '') {
+            var addInquiryValVO = new Object();
+            addInquiryValVO.addInquirySeq = addInquirySeq;
+            addInquiryValVO.addInquiryVal = value;
+            addInquiryValArray.push(addInquiryValVO);
+        }
+    }
+
+    // checkbox 처리
+    var checkboxGroup = $('[name=checkbox-data]');
+
+    for (var i = 0; i < checkboxGroup.length; i++) {
+        var addInquirySeq = checkboxGroup[i].id;
+        var mandatoryYn = $('#inquiry_' + addInquirySeq).attr('mandatoryYn');
+        var index = $('#inquiry_' + addInquirySeq).attr('index');
+        var value = '';
+
+        $('[name=inquiryCheck_' + index + ']:checked').each(function(idx) {
+            value += this.value + ';';
+        });
+
+        if (mandatoryYn == 'Y' && value == '') {
+            var addInquiryName = $('#addInquiryName_' + addInquirySeq).text();
+            alert(addInquiryName + '을 선택해주세요.');
+            $('#inquiry_' + addInquirySeq).focus();
+            return;
+        }
+
+        if (value != '') {
+            var addInquiryValVO = new Object();
+            addInquiryValVO.addInquirySeq = addInquirySeq;
+            addInquiryValVO.addInquiryVal = value;
+            addInquiryValArray.push(addInquiryValVO);
+        }
+    }
+
+    // calendar 처리
+    var calendarGroup = $('[name=calendar-data]');
+
+    for (var i = 0; i < calendarGroup.length; i++) {
+        var addInquirySeq = calendarGroup[i].id;
+        var mandatoryYn = $('#inquiry_' + addInquirySeq).attr('mandatoryYn');
+        var value = $('#inquiry_' + addInquirySeq).val();
+
+        if (mandatoryYn == 'Y' && nvl(value, '') == '') {
+            var addInquiryName = $('#addInquiryName_' + addInquirySeq).text();
+            alert(addInquiryName + '을 입력해주세요.');
+            $('#inquiry_' + addInquirySeq).focus();
+            return;
+        }
+
+        if (value != '') {
+            var addInquiryValVO = new Object();
+            addInquiryValVO.addInquirySeq = addInquirySeq;
+            addInquiryValVO.addInquiryVal = value;
+            addInquiryValArray.push(addInquiryValVO);
+        }
+    }
+
+    var totalAddInquiryValArray = new Object();
+    totalAddInquiryValArray.addInquiryValList = addInquiryValArray;
+
+    if (addInquiryValArray.length > 0) {
+        $('#addInquiryValJson').val(JSON.stringify(totalAddInquiryValArray));
+    }
+
+    // 검사타입이 일반형/버전형인 경우 서브검사상품아이디를 구한다.
+    if ($('#atTypeCd').val() == '0001' ||
+        $('#atTypeCd').val() == '0004' ||
+        $('#atTypeCd').val() == '0005') {
+        // 진행프로그래스 View
+        LoadingView();
+
+        $.ajax({
+            url: '/front/testing/subPsyItemIdAjax',
+            data: $('#form').serialize(),
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+
+                var subPsyItemId = data.subPsyItemId;
+
+                if (nvl(subPsyItemId, '') == '') {
+                    alert('입력하신 생년월일과 학년이 해당 검사 규준에 맞지 않습니다.\n검사의 대상 연령이 맞게 입력되었는지 확인바랍니다.');
+                } else if ((subPsyItemId == '00961199') && ("OHSS_CO_SG" == 'UTAP2_CO_TG')) {
+                    alert("8세 이상 피검자의 경우, 7세의 규준을 사용하여 결과를 산출합니다.\n해석 시 유의하시기 바랍니다.");
+                    $('#subPsyItemId').val(subPsyItemId);
+                    $('#form').submit();
+                } else if (("OHSS_CO_SG" == 'PCLR_EX_SG') && (subPsyItemId == 'F02161199')) {
+                    alert('국내 남성범죄자 집단의 규준을 사용하여, 결과를 산출합니다.');
+                    $('#subPsyItemId').val(subPsyItemId);
+                    confirmDialog('formSubmitBtn', '인적사항 입력완료 후 수정이나 삭제가 불가하오니\n정확히 입력하셨는지 다시한번 확인바랍니다.');
+                } else if (("OHSS_CO_SG" == 'PPIR_CO_SG_ON') && (subPsyItemId == 'F02161199') && ("V1.0" == "V2.0")) {
+                    alert('남성수용자 집단의 규준을 사용하여, 결과를 산출합니다.');
+                    $('#subPsyItemId').val(subPsyItemId);
+                    confirmDialog('formSubmitBtn', '인적사항 입력완료 후 수정이나 삭제가 불가하오니\n정확히 입력하셨는지 다시한번 확인바랍니다.');
+                } else if (("OHSS_CO_SG" == 'QRW_CO_TG') && subPsyItemId == 'F20282056' || subPsyItemId == 'M20282056') {
+                    alert("본 검사는 초등학교 4학년 규준까지만 제공합니다. 5학년 이상의 경우 4학년의 규준을 사용하여 결과를 산출합니다. 해석 시 유의하시기 바랍니다.");
+                    $('#subPsyItemId').val(subPsyItemId);
+                    confirmDialog('formSubmitBtn', '인적사항 입력완료 후 수정이나 삭제가 불가하오니\n정확히 입력하셨는지 다시한번 확인바랍니다.');
+                } else {
+                    $('#subPsyItemId').val(subPsyItemId);
+
+                    if ($('#atTypeCd').val() == '0005') {
+                        //$('#form').submit();
+
+                    } else {
+                        var directionsUseYn = 'N';
+
+                        if (directionsUseYn == 'Y') {
+                            //$('#form').submit();
+
+                        } else {
+                            //if (confirm('결과처리 후에는 모든 인적 및 선택 사항은\n수정하실 수 없습니다.\n다음 페이지로 진행해도 되겠습니까?')) {
+                            //	$('#form').submit();
+                            //}
+                        }
+                    }
+                    if (("OHSS_CO_SG" != 'SCI2_CO_SG_E13') && ("OHSS_CO_SG" != 'UW-SET_CO_TG_E')) {
+                        confirmDialog('formSubmitBtn', '인적사항 입력완료 후 수정이나 삭제가 불가하오니\n정확히 입력하셨는지 다시한번 확인바랍니다.');
+                    } else {
+                        $('#form').submit();
+                    }
+
+                }
+
+                // 진행프로그래스 Close
+                LoadingClose();
+            }
+        });
+    } else {
+        confirmDialog('formSubmitBtn', '인적사항 입력완료 후 수정이나 삭제가 불가하오니\n정확히 입력하셨는지 다시한번 확인바랍니다.');
+        //$('#form').submit();
+    }
+});
+
+$('#atSchoolTypeCd').change(function(e) {
+    e.preventDefault();
+    setAtSchoolAgeCd(this.value);
+});
+
+$(document).on("click", "#formSubmitBtn", function(e) {
+    e.preventDefault();
+    $('#form').submit();
+});
+
+$('#shcoolType').change(function(e) {
+    e.preventDefault();
+
+    var html2 = "";
+    $('#grade').html("");
+    html2 += '<option value="">선택</option>';
+    if ($(this).val() < 2) {
+        for (var i = 1; i < 7; i++) {
+            html2 += '	<option value="' + i + '" >' + i + '</option>';
+        }
+    } else if ($(this).val() > 1) {
+        for (var i = 1; i < 4; i++) {
+            html2 += '	<option value="' + i + '" >' + i + '</option>';
+        }
+    } else {
+        $('#grade').html('<option value="">선택</option>');
+    }
+    $('#grade').append(html2);
+});
+
+
+//강원도교육청일시 지역 : 강원도 고정,  학년/소속 : 없음으로 고정
+if ('' == '강원도교육청') {
+
+    $('#atRegionCd option:eq(1)').prop('selected', true);
+    $('#atSchoolTypeCd option:eq(1)').prop('selected', true);
+    setAtSchoolAgeCd($('#atSchoolTypeCd').val());
+    $('#atSchoolAgeCd option:eq(1)').prop('selected', true);
+
+    $("#atRegionCd option").not(":selected").attr("disabled", "disabled");
+    $("#atSchoolTypeCd option").not(":selected").attr("disabled", "disabled");
+    $("#atSchoolAgeCd option").not(":selected").attr("disabled", "disabled");
+}
+
+});
+
+// 학령 정보 세팅
+function setAtSchoolAgeCd(commonGroupCd) {
+
+if (commonGroupCd == '') {
+    var html = '';
+    html += '<select class="form-control" id="atSchoolAgeCd" name="atSchoolAgeCd">';
+    html += '	<option value="">선택하세요.</option>';
+    html += '</select>';
+
+    $('#atSchoolAgeCdArea').empty();
+    $('#atSchoolAgeCdArea').append(html);
+
+    return;
+}
+
+$.ajax({
+    url: '/front/common/commonCode/listAjax',
+    data: ({
+        commonGroupCd: commonGroupCd,
+        useYn: 'Y'
+    }),
+    type: 'POST',
+    dataType: 'json',
+    async: false, //동기화로 모두 그려지고 선택되게 변경
+    success: function(list) {
+        $('#atSchoolAgeCdArea').empty();
+
+        var atSchoolAgeCd = '';
+        var html = '';
+
+        if ($('#psyItemId').val() == "TBI_CO_SG") {
+            html += '<select class="form-control" id="atSchoolAgeCd" name="atSchoolAgeCd" style="display:none">';
+        } else {
+            html += '<select class="form-control" id="atSchoolAgeCd" name="atSchoolAgeCd">';
+        }
+
+        html += '	<option value="">선택하세요.</option>';
+
+        for (var i = 0; i < list.length; i++) {
+            var selectedText = '';
+            if (list[i].commonCd == atSchoolAgeCd || $('#psyItemId').val() == "TBI_CO_SG") {
+                selectedText = 'selected';
+            }
+
+            html += '	<option value="' + list[i].commonCd + '" ' + selectedText + '>' + list[i].commonCdNm + '</option>';
+        }
+        html += '</select>';
+
+        $('#atSchoolAgeCdArea').append(html);
+    }
+});
+}
+
+// 월령 계산
+function setAtAgeCd() {
+
+var testingDate = $('#testingDate').val();
+var birthday = $('#birthday').val();
+
+if ($('#testingDate').val() == '' || $('#birthday').val() == '') {
+    return;
+}
+
+var arrayTestingDate = testingDate.split('-');
+var arrayBirthday = birthday.split('-');
+var dayDiff = parseFloat(arrayTestingDate[2]) - parseFloat(arrayBirthday[2]);
+var monthAdd = 0;
+
+if (dayDiff < 0) {
+    monthAdd = 1;
+}
+
+var totalMonth = parseInt(((arrayTestingDate[0] - arrayBirthday[0]) * 12) + (arrayTestingDate[1] - arrayBirthday[1]) - monthAdd);
+
+var ageYear = parseInt(totalMonth / 12);
+var ageMonth = totalMonth % 12;
+
+if (totalMonth < 0) {
+
+    $('#ageYear').html(0);
+    $('#ageMonth').html(0);
+    $('#atAgeCd').val('0000');
+    $('#age').val(0);
+
+} else {
+    $('#ageYear').html(ageYear);
+    $('#ageMonth').html(ageMonth);
+    $('#age').val(ageYear);
+
+    var atAgeCd = '';
+
+    if (totalMonth < 10) {
+        atAgeCd = '000' + totalMonth;
+
+    } else if (totalMonth < 100) {
+        atAgeCd = '00' + totalMonth;
+
+    } else if (totalMonth < 1000) {
+        atAgeCd = '0' + totalMonth;
+    } else {
+        atAgeCd = totalMonth;
+    }
+    $('#atAgeCd').val(atAgeCd);
+
+    if (Number(atAgeCd) < 216 || Number(atAgeCd) > 816) {
+        alert("해당 검사는 18세 부터 68세 까지입니다");
+        return;
+    }
+
+}
+}
+
+
+function confirmDialog(confirmBtnId, message) {
+
+$('.title-wrap').append('<div id="confirmDialog" class="modal" tabindex="-1" role="dialog"></div>');
+
+
+//-------------------------------기본인적 사항 내역 가져오기 세팅 start-------------------------------------
+var txt = [];
+var val1 = [];
+var val2 = [];
+var val3 = [];
+var val4 = [];
+
+$("#firstTable tbody tr").each(function(i) {
+    $($(this).find('th')).each(function(i) {
+        txt.push($(this).text());
+    });
+    $($(this).find('td')).each(function(i) {
+        if ($(this).find('input').attr('type') == 'text') {
+            if ($(this).find('input').attr('id') == 'classDepartment') {
+                val4.push($("#classDepartment").val() + " / " + $("#idNum").val());
+            } else if ($(this).find('input').attr('id') != 'idNum' && $(this).find('input').attr('id') != 'classDepartment') {
+                val1.push($(this).find('input').val());
+            }
+        }
+        if ($(this).find('input').attr('type') == 'radio') {
+            var nm = $(this).find('input').attr('name');
+            val2.push(($('[name=' + nm + ']:checked').val() == 'M') ? '남자' : '여자');
+            //val2.push($(this).find('input option:checked').val());
+        }
+    });
+});
+
+var val = "";
+var result = [];
+
+//셀박 수에 따라 담아지는게 다르다
+if ($('#firstTable select').length > 0) {
+    for (var i = 0; i < $('#firstTable select').length; i++) {
+        var id = $('#firstTable select').eq(i).eq(0).attr('id');
+        if (id == 'atSchoolTypeCd') {
+            val = $("#" + id + " option:selected").text();
+        } else if (id == 'atSchoolAgeCd') {
+            val3.push(val + "/" + $("#" + id + " option:selected").text());
+        } else if (id == 'classDepartment') {
+            val = $("#" + id + " option:selected").text();
+            val3.push(val + "/ " + $("#idNum").val());
+        } else {
+            val3.push($("#" + id + " option:selected").text());
+        }
+    }
+
+    if (val4.length != 0) {
+        result = val1.concat(val2, val3, val4);
+    } else {
+        result = val1.concat(val2, val3);
+    }
+} else {
+    result = val1.concat(val2);
+}
+
+var result2 = [];
+var selectGroup = $('[name=select-data]');
+
+for (var i = 0; i < selectGroup.length; i++) {
+    var addInquirySeq = selectGroup[i].id;
+    var value = $('#inquiry_' + addInquirySeq + '  option:selected').val();
+
+    result2.push(value);
+}
+
+var textGroup = $('[name=text-data]');
+var Buseo = [];
+
+for (var i = 0; i < textGroup.length; i++) {
+    var addInquirySeq = textGroup[i].id;
+    var value = $('#inquiry_' + addInquirySeq).val();
+
+    Buseo.push(value);
+}
+
+//-------------------------------기본인적 사항 내역 가져오기 세팅 end-------------------------------------
+
+var html = '';
+var age = $('#ageYear').text();
+var newAge = age.substr(0, 1);
+
+html += '<div class="modal-dialog modal-md">';
+html += '	<div class="modal-content">';
+html += '		<div class="modal-header" style="background-color:#473DB8;;">';
+html += '			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+html += '			<h4 style="color : white;">인적사항 확인</h4>';
+html += '		</div>';
+html += '		<div class="modal-body">';
+html += '  <table class ="table ohss-table-blue" style="font-size:14px;">';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> 검사자';
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" colspan="3" style="height:39px;">';
+html += result[0];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> 검사기관';
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" colspan="3" style="height:39px;"> ';
+html += result[2];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> 검사일';
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" colspan="3" style="height:39px;"> ';
+html += result[1];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">피검사자</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result[3];
+html += ' 	</td>';
+html += ' 	<th style="height:39px;"> <p style="float:left">거주지역</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result[6];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">성별</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result[5];
+html += ' 	</td>';
+html += ' 	<th style="height:39px;"> <p style="float:left">연령</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += newAge + "0대 이상";
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">학력</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result2[0];
+html += ' 	</td>';
+html += ' 	<th style="height:39px;"> <p style="float:left">직급</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result2[1];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">직종</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" colspan="3" style="height:39px;"> ';
+html += result2[2];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">업종</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" colspan="3" style="height:39px;"> ';
+html += result2[3];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += ' <tr>';
+html += ' 	<th style="height:39px;"> <p style="float:left">업체규모</p>';
+html += '   <p class="circle">&nbsp;&nbsp;●</p> '
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px;"> ';
+html += result2[4];
+html += ' 	</td>';
+html += ' 	<th style="height:39px;"> 부서';
+html += ' 	</th>';
+html += ' 	<td class="ohsTd" style="height:39px"> ';
+html += Buseo[0];
+html += ' 	</td>';
+html += ' </tr>';
+
+html += '  </table>';
+html += '		</div>';
+html += '		<div class="modal-body"><strong><font color="#3F6788">';
+html += message;
+html += '		</font></strong></div>';
+html += '		<div class="modal-footer">';
+html += '			<a href="#" class="btn btn-primary" id="' + confirmBtnId + '" style="background-color:#473DB8;">검사 실시</a>';
+html += '			<a href="#" class="btn btn-default" data-dismiss="modal">취소</a>';
+html += '		</div>';
+html += '	</div>';
+html += '</div>';
+
+$('#confirmDialog').html(html);
+$('#confirmDialog').modal({
+    'backdrop': 'static'
+});
+$('#confirmDialog').draggable({
+    handle: ".popup-header"
+});
+
+// Modal이 닫혔을때
+$('#confirmDialog').on('hidden.bs.modal', function() {
+    $('#confirmDialog').remove();
+});
+}
+</script>
+<style>
+.ohss-table-blue tr .ohsTh {
+font-weight: bold;
+}
+
+.ohss-table-blue tr .OHSTH {
+font-size: 14px;
+}
+
+.ohss-table-blue tr .OHSTH2 {
+width: 15%;
+font-weight: bold;
+font-size: 14px;
+}
+
+.circle {
+font-style: inherit;
+color: #55d6be;
+font-size: 10px;
+}
+
+@media (max-width: 991px) {
+.ohss-table-blue tr .ohsTh {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ohss-table-blue .thClass {
+    background: #ECF1FF;
+    color: #473DB8;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    width: 100px;
+}
+
+.ohss-table-blue tr .OHSTH2 {
+    width: auto;
+}
+
+.circle {
+    font-style: inherit;
+    color: #55d6be;
+    font-size: 10px;
+}
+}
+</style>
+<!-- K-Bayley-4 베일리 영유아 발달검사 4판 스크립트 레이어 팝업 -->
+<script>
+/* 조산아 관련 안내 */
+function josan_guide() {
+$("#josan_guide").bPopup();
+}
+
+/* 인적사항 확인 */
+function user_chk() {
+$("#user_chk").bPopup();
+}
+/* 총점 입력 형 안내 */
+function chongjum_guide() {
+$("#chongjum_guide").bPopup();
+}
+
+/* 미응답 안내 */
+function respon_check() {
+$("#respon_check").bPopup();
+}
+
+
+$("#popup_user").bPopup().close();
+
+</script>
+
+
+
+</head>
+
+<body class="sub" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+
+<div id="dispDp" style="">
+<header class="header-wrap">
+<div class="container">
+    <div class="logo">
+        <a href="#none;">인싸이트</a>
+    </div>
+</div>
+</header>
+<div class="title-wrap">
+<div class="container">
+    <h1 class="pull-left">
+        <i class="ohss-title-bullet"></i>
+        K-Bayley-4 베일리 영유아 발달검사 4판
+    </h1>
+    <div class="flow-list">
+        <ul>
+            <li class="flow-cont" style="background-color: #3574BB;border-color:#2569B6; color:white;">기본정보</li>
+            <li>&gt;</li>
+
+            <li class="flow-cont">작성방법</li>
+            <li>&gt;</li>
+
+            <li class="flow-cont">답안입력</li>
+            <li>&gt;</li>
+            <li class="flow-cont">완료</li>
+        </ul>
+    </div>
+</div>
+</div>
+<div class="sub-content">
+<div class="container">
+    <div class="sub-body bayley4">
+        <!-- 인지- COGNITIVE -->
+        <div id="bayley4_test_top">
+            <div class="bayley4_top1 clear">
+                <div class="bayley4_stitle">
+                    <span class="title_sq">&nbsp;</span>
+                    <span class="s_title">인지/언어/운동 - 인지 문항</span>
+                </div>
+                <div class="bayley4_navi">
+                    <table border = "1" bordercolor = "white" width = 1000 height = 32>
+                        <thead style="background-color: #4637BC">
+                            <tr style="color: white;">
+                                <th>①인지</th>
+                                <th colspan = "2">②언어</th>
+                                <th colspan = "2">③운동</th>
+                                <th>④사회정서</th>
+                                <th colspan = "5">⑤적응행동</th>
+                                <th colspan = "2">⑥행동관찰자</th>
+                            </tr>    
+                        </thead>
+                        <tr>
+                            <td>인지</td>
+                            <td>수용</td>
+                            <td>표현</td>
+                            <td>소근육</td>
+                            <td>대근육</td>
+                            <td>사회정서</td>
+                            <td>수용</td>
+                            <td>표현</td>
+                            <td>개인</td>
+                            <td>대인관계</td>
+                            <td>놀이/여가</td>
+                            <td>검사자용</td>
+                            <td>양육자용</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+            <div class="bayley4_top2 clear">
+                <div class="title step_1">
+                    <span class="bayley4_cate"><img src="images/cognitive.jpg"></span> <strong>인지</strong> - COGNITIVE
+                </div>
+                <div class="input_chongjum clear">
+                    <span class="input_chongjum_title">직접 입력하기</span>
+                    <span class="chong_total">총점 : <input type="text"> (0-162)</span>
+                </div>
+            </div>
+            <!-- <div class="bayley4_test_step">2 / 17</div> -->
+        </div>
+        <div id="bayley4_cognitive" class="clear">
+            <div class="cognitive_q_list">
+                <table class="q_list_table">
+                    <tbody>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">39. 소리나는 오리 누르기</td>
+                            <td class="list_score">
+                                <span class="list_sq disabled">-</span>
+                            </td>
+                        </tr>
+                        <tr class="act on">
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">40. 블록시리즈: 블록 9개</td>
+                            <td class="list_score">
+                                <span class="list_sq">1</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">41. 분홍조각판 시리즈: 조각 2개</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">42. 파랑조각판 시리즈: 조각 1개</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">43. 막대꽂이판 시리즈: 막대 6개</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">44. 숨겨진 사물 찾기(사물 보이게 이동)</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">45. 관계놀이: 타인</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">46. 파랑조각판 시리즈: 조각 4개</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">47. 분홍조각판 시리즈: 조각 3개</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">48. 숨겨진 사물 찾기(컵 위치이동)</td>
+                            <td class="list_score">
+                                <span class="list_sq"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="list_tab"></th>
+                            <td class="list_select"><img src="images/arrow.png"></td>
+                            <td class="list_txt">49. 모양 맞추기: 공</td>
+                            <td class="list_score">
+                                <span class="list_sq disabled"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="q_cont clear">
+                <div class="modal">
+                    <div class="modal_popup">
+                        <div class="popup_inner">
+                        <h3>문항지침</h3>
+                        <img src="images/그림1.png">
+                        <p>조각판을 아동 앞에 놓고 원조각 4개와 네모조각 4개를 검사자와 가까운 쪽에 나열한다. 5번째 네모조각을 올바른 구멍에 넣고, 보세요! 이것은 여기에 맞아요. 라고 말한다. 네모 조각을 꺼내서 아동의 손에 건네준다. 조각판 쪽을 가리키며, 이것을 어디에 넣으면 될까요? 라고 말한다. 시간측정을 시작한다.<br/>
+                            <br/>
+                            90초를 준다.<br/>
+                            <br/>
+                            아동이 조각을 정확하게 넣도록 도와주지 않는다. 정확하게 넣는지와 상관없이, 아동이 각 조각을 원하는 대로 놓으면, 한 번에 1개씩 원조각과 네모조각을 번갈아가며 건네준다.<br/>
+                            정확하게 넣는다는 것은 조각이 구멍에 꼭 끼운다는 것을 의미한다.<br/>
+                            </p>
+                        </div>
+                        <button type="button" class="close_btn">닫기</button>
+                    </div>
+                </div>
+                <div class="q_cont_list">
+                    <div class="cont_list_top clear">
+                        <div class="cont_list_title">
+                            <p class="t_1">40. 블록 시리즈: 블록 9개</p>
+                            <p class="t_2">
+                                <span>검사도구</span> : 파랑조각판, 파랑조각 세트, 초시계<br>
+                                <span>자세</span> : 앉은 자세
+                            </p>
+                        </div>
+                        <button type="button" class="modal_btn">문항지침</button>
+                    </div>
+                    <div class="cont_list_3">
+                        <span class="q_list_title">점수</span>
+                        <span class="q_list_title">채점기준</span>
+                        <div class="chk_score clear">
+                            <p> 
+                                <input type="radio" id="chk_score_2" class="hidden">
+                                <label for="chk_score_2">
+                                    <span>2</span>
+                                    <span>90초 내에 1-9개 조각을 정확하게 맞춘다.</span>
+                                </label>
+                            </p>
+                            <p>
+                                <input type="radio" id="chk_score_1" class="hidden">
+                                <label for="chk_score_1">
+                                    <span>1</span>
+                                    <span>90초 내에 1개 이상의 조각을 놓지만, 정확하게 맞추지 않는다.</span>
+                                </label>
+                            </p>
+                            <p>
+                                <input type="radio" id="chk_score_0" class="hidden">
+                                <label for="chk_score_0">
+                                    <span class="on">0</span>
+                                    <span>90초 내에 조각을 정확하게 맞추지 않는다.</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cont_list_4">
+                        <span class="q_list_title">조각 수</span>
+                        <ul class="chk_behavior clear">
+                            <li class="on">
+                                <input type="radio" id="chk_behavior_1" class="hidden">
+                                <label for="chk_behavior_1">1</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_2" class="hidden">
+                                <label for="chk_behavior_2">2</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_3" class="hidden">
+                                <label for="chk_behavior_3">3</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">4</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">5</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">6</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">7</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">8</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="chk_behavior_4" class="hidden">
+                                <label for="chk_behavior_4">9</label>
+                            </li>
+                        </ul>
+                        <div class="SR">
+                            <p class="SR_R">
+                                <span>R</span> <span class="on">40</span> <span>41</span> <span>45</span> <span>46</span> <span>50</span> <span>54</span>
+                            </p>
+                            <p class="SR_S">
+                                <span>S</span> <span class="on">40</span> <span>41</span> <span>45</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cont_list_7">
+                        <span class="q_list_title">Comment</span>
+                        <div>
+                            <input type="text">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="bayley4_btn">
+                    <div class="stopwatch">
+                        <div class="watch">
+                            <!-- <span id="w_min">00</span>
+                            <span class="w_txt">:</span> -->
+                            <span id="w_sec">00</span>
+                            <span class="w_txt">.</span>
+                            <span id="w_msec">00</span>
+                            <span class="w_txt">s</span>
+                        </div>
+                        <div class="w_control">
+                            <span class="w_start"><a onclick="" id="testStartBtn">Start</a></span>
+                            <span class="w_reset"><a onclick="" id="testStopBtn">Stop</a></span>
+                        </div>
+                    </div>
+                    <div class="bayley4_control">
+                        <span class="interim_save"><a href="#" onclick="">중간저장</a></span>
+                        <span class="pre"><a href="#" onclick="">이전</a></span>
+                        <span class="next"><a href="#" onclick="">다음</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 레이어 팝업 S-->
+
+        <a href="#" onclick="chongjum_guide()">[총점 입력형 안내]</a>
+        <a href="#" onclick="respon_check()">[미응답 항목 안내]</a>
+
+        <!-- 총점 입력형 안내 -->
+        <div id="chongjum_guide" class="Pstyle">
+            <span class="b-close"></span>
+            <div class="content" style="height:auto;">
+                <p class="chong_title">검사 총점 입력형</p>
+                <p class="chong_cont">검사를 모두 완료한 후 지문을 보지 않고 총점만 입력하시는 경우 이 페이지에서 입력 후 다음 검사로 넘어갈 수 있습니다. 아직 검사를 진행하지 않았다면 '온라인 검사 실시'를 클릭하여 검사를 진행하시바랍니다.</p>
+                <p class="chongjum">
+                    총 점 : <input type="text" value="132"> (0-162)
+                </p>
+                <p class="pop_btn">
+                    <!-- 
+                      버튼 색상 변경  추가 클래스
+                      cong - 인지 / cummuni - 언어 / fine - 운동 / social - 사회정서 / adaptive - 적응행동
+                    -->
+                    <span class="test_play cong"><a href="#" onclick="">온라인검사 진행하기</a></span>
+                    <span class="save_n_play"><a href="#" onclick="">저장 후 다음 검사 진행하기</a></span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- 미응답 항목 안내  -->
+        <div id="respon_check" class="Pstyle">
+            <span class="b-close"></span>
+            <div class="content" style="height:auto;">
+                <p class="respon_check_cont">
+                    미응답 항목이 있습니다.<br>해당 항목들을 모두 응답하시고 '다음'을 눌러주세요.
+                </p>
+                <p class="respon_check_list">
+                    <span>4번, 19번</span>
+                </p>
+                <p class="pop_btn respon_check">
+                    <span class="check_btn"><a href="#" onclick="">확인</a></span>
+                </p>
+            </div>
+        </div>
+        <!-- 레이어 팝업 E-->
+    </div>
+</div>
+</div>
+</div>
+
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+
+<!-- 타이머 스크립트 추가 -->
+<script>
+
+</script>
+</body></html>
